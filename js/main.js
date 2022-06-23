@@ -54,7 +54,7 @@ while (catalogo != 'salir') {
             `El precio de  ${mercaderia[0].nombre} es de  ${mercaderia[0].price} ¿Quieres añadirlo al carrito? \n- Si \n- No`
             );
         if(trowninc=="si"){
-            carrito.push(mercaderia[0].price).parseInt;
+            carrito.push(mercaderia[0].price).parseFloat;
             console.log(carrito); }
         break;
     case 'Pine Tree':
@@ -62,14 +62,14 @@ while (catalogo != 'salir') {
         `El precio de  ${mercaderia[1].nombre} es de  ${mercaderia[1].price} ¿Quieres añadirlo al carrito? \n- Si \n- No`
         );
         if(pinetree=="si"){
-            carrito.push(mercaderia[1].price).parseInt;
+            carrito.push(mercaderia[1].price).parseFloat;
             console.log(carrito); }
         break;
     case 'Ice':
         let ice= prompt(
         `El precio de  ${mercaderia[2].nombre} es de  ${mercaderia[2].price} ¿Quieres añadirlo al carrito? \n- si \n- No`);
         if(ice=="si"){
-        carrito.push(mercaderia[2].price).parseInt;
+        carrito.push(mercaderia[2].price).parseFloat;
         console.log(carrito);
     }
         break;
@@ -120,21 +120,21 @@ while (costoEnvio != 'salir') {
         let CorreoArgentino= prompt(
             `El precio de  ${mediosDeEnvio[0].nombre} es de  ${mediosDeEnvio[0].price} ¿Quieres añadirlo al carrito? \n- si \n- No`);
             if(CorreoArgentino=="si"){
-            precioenvio.push(mediosDeEnvio[0].price).parseInt;
+            precioenvio.push(mediosDeEnvio[0].price).parseFloat;
             console.log(precioenvio); }
         break;
     case 'Andreani':
         let Andreani= prompt(
             `El precio de  ${mediosDeEnvio[1].nombre} es de  ${mediosDeEnvio[1].price} ¿Quieres añadirlo al carrito? \n- si \n- No`);
             if(Andreani=="si"){
-            precioenvio.push(mediosDeEnvio[1].price).parseInt;
+            precioenvio.push(mediosDeEnvio[1].price).parseFloat;
             console.log(precioenvio); }
         break;
     case 'Retiro por local':
         let retiroPorLocal= prompt(
             `El precio de  ${mediosDeEnvio[2].nombre} es de  ${mediosDeEnvio[2].price} ¿Quieres añadirlo al carrito? \n- si \n- No`);
             if(retiroPorLocal=="si"){
-            precioenvio.push(mediosDeEnvio[2].price).parseInt;
+            precioenvio.push(mediosDeEnvio[2].price).parseFloat;
             console.log(precioenvio); }
         break;
     default:
@@ -149,7 +149,7 @@ while (costoEnvio != 'salir') {
 // Termina menú para costo de envío
 
 // Inicia bloque de determinación de resultados.
-let resultado = parseInt(carrito) + parseInt(precioenvio) 
+let resultado = parseFloat(carrito) + parseFloat(precioenvio) 
 
 let impresion= document.getElementById('Container-principal')
 
@@ -159,19 +159,19 @@ function mostrar(mensaje) {
     unaCuota.type = 'button'; 
     unaCuota.innerText = 'Pagar en una cuota'; 
     document.body.appendChild(unaCuota);
-    unaCuota.addEventListener("click", function(){ console.log(`pago final de  ${parseInt(resultado)}`) });
+    unaCuota.addEventListener("click", function(){ console.log(`pago final de  ${parseFloat(resultado).toFixed(2)}`) });
 
     const tresCuotas= document.createElement('button'); 
     tresCuotas.type = 'button'; 
     tresCuotas.innerText = 'Pagar en 3 cuotas'; 
     document.body.appendChild(tresCuotas);
-    tresCuotas.addEventListener("click", function(){ console.log(`pago final de  ${parseInt(resultado/3)}`) });
+    tresCuotas.addEventListener("click", function(){ console.log(`pago final de  ${parseFloat(resultado/3).toFixed(2)}`) });
 
     const seisCuotas= document.createElement('button'); 
     seisCuotas.type = 'button'; 
     seisCuotas.innerText = 'Pagar en 6 cuotas'; 
     document.body.appendChild(seisCuotas);
-    seisCuotas.addEventListener("click", function(){ console.log(`pago final de  ${parseInt(resultado/6)}`) });
+    seisCuotas.addEventListener("click", function(){ console.log(`pago final de  ${parseFloat(resultado/6).toFixed(2)}`) });
 
     impresion.innerHTML=`El precio total a pagar es de ${mensaje }`;
 
