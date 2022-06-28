@@ -12,19 +12,24 @@ const precioTotal = document.getElementById('precioTotal');
 const selecPrecios = document.getElementById('selecPrecios')
 const buscador = document.getElementById('search')
 
+//Diccionario de el filtro
 
+const diccionarioDelFiltros = [
+    {min: 0, max:900},
+    {min: 1000, max: 1500},
+    {min: 1600, max: 2000},
+]
 
 //hacemos el Filtro
 selecPrecios.addEventListener('change',()=>{
 
-    console.log(selecPrecios.value)
-    if(selecPrecios.value == 'all'){
-        mostrarProductos(stockProductos)
-    }else{
-        let arrayNuevo = stockProductos.filter(item => item.tipo == selecPrecios.value)//array nuevo
+    let productosFiltrados;
 
-        mostrarProductos(arrayNuevo)
-    }
+    if (selecPrecios.value == `all`) productosFiltrados = stockProductos
+    else if (selecPrecios.value == `3`) productosFiltrados = stockProductos.filter(item => item.precio >= 2000)
+    else productosFiltrados = stockProductos.filter(item => item.precio >= diccionarioDelFiltros[selecPrecios.value].min && item.precio <= diccionarioDelFiltros[selecPrecios.value].max )
+
+    mostrarProductos (productosFiltrados)
 })
 
 //EL STOCK
@@ -75,7 +80,7 @@ function mostrarProductos(array){
 
     }
     
-   
+
 }
 
 
@@ -90,9 +95,9 @@ function agregarAlCarrito(id) {
     }else{
         let productoAgregar = stockProductos.find(ele => ele.id === id)
         productoAgregar.cantidad = 1 
-   carritoDeCompras.push(productoAgregar)
-   actualizarCarrito()
-   mostrarCarrito(productoAgregar) 
+carritoDeCompras.push(productoAgregar)
+actualizarCarrito()
+mostrarCarrito(productoAgregar) 
     }
 }
 
