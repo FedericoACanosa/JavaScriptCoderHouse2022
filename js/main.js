@@ -14,32 +14,48 @@ const buscador = document.getElementById('search')
 
 //Diccionario de el filtro
 
-const diccionarioDelFiltros = [
-    {min: 0, max:900},
-    {min: 1000, max: 1500},
-    {min: 1600, max: 2000},
-]
+// const diccionarioDelFiltros = [
+//     {min: 0, max: 900},
+//     {min: 1000, max: 1500},
+//     {min: 1600, max: 2000},
+// ]
 
 //hacemos el Filtro
-selecPrecios.addEventListener('change',()=>{
 
-    let productosFiltrados;
+    // selecPrecios.addEventListener('change',()=>{
 
-    if (selecPrecios.value == `all`) productosFiltrados = stockProductos
-    else if (selecPrecios.value == `3`) productosFiltrados = stockProductos.filter(item => item.precio >= 2000)
-    else productosFiltrados = stockProductos.filter(item => item.precio >= diccionarioDelFiltros[selecPrecios.value].min && item.precio <= diccionarioDelFiltros[selecPrecios.value].max )
+    // let productosFiltrados;
 
-    mostrarProductos (productosFiltrados)
-})
+    //     if (selecPrecios.value == 'all') productosFiltrados = stockProductos
+    //     else if (selecPrecios.value == '3') productosFiltrados = stockProductos.filter(item => item.precio >= 2000)
+    //     else productosFiltrados = stockProductos.filter(item => item.precio >= diccionarioDelFiltros[selecPrecios.value].min && item.precio <= diccionarioDelFiltros[selecPrecios.value].max )
+
+    //     mostrarProductos (productosFiltrados)
+    // })
+
+    selecPrecios.addEventListener('change',()=>{
+
+        console.log(selecPrecios.value)
+        if(selecPrecios.value == 'all'){
+            mostrarProductos(stockProductos)
+        }else{
+            let arrayNuevo = stockProductos.filter(item => item.tipo == selecPrecios.value)
+            
+            //array nuevo
+    
+            mostrarProductos(arrayNuevo)
+        }
+    })
+
 
 //EL STOCK
 let stockProductos = [
 	{id:1, nombre: "Body tigre", precio: 900, tipo: 1, desc: "Body de frizza estampado para bebé",  demora: "40min", img: './img/prod1.png'},
-	{id:2, nombre: "Jean wide leg", precio: 2300, tipo: 3, desc: "Jean elastizado con roturas y corte Oxford", demora: "3hs", img:'./img/prod2.png'},
-	{id:3, nombre: "Jean roturas", precio: 3700, tipo: 4, desc: "Jean elastizado con roturas, estampado y corte Oxford", demora: "4hs", img:'./img/prod3.png'},
+	{id:2, nombre: "Jean wide leg", precio: 2300, tipo: 4, desc: "Jean elastizado con roturas y corte Oxford", demora: "3hs", img:'./img/prod2.png'},
+	{id:3, nombre: "Jean roturas", precio: 1700, tipo: 3, desc: "Jean elastizado con roturas, estampado y corte Oxford", demora: "4hs", img:'./img/prod3.png'},
 	{id:4, nombre: "Jean roturas/razgados", precio: 4200, tipo: 4, desc: "Jeans elastizados con rotaras y/o razgados", demora: "60min", img:'./img/prod4.png'},
 	{id:5, nombre: "Buzo anime", precio: 1200, tipo: 2, desc: "Buzo de algodón estampado.", demora: "45min", img:'./img/prod5.png'},
-	{id:6, nombre: "Buzo Smile", precio: 2100, tipo: 3, desc: "Buzo de frizza con estampado. ", demora: "3hs", img:'./img/prod6.png'},
+	{id:6, nombre: "Buzo Smile", precio: 2100, tipo: 4, desc: "Buzo de frizza con estampado. ", demora: "3hs", img:'./img/prod6.png'},
 ] 
 
 //Buscador o search
@@ -58,15 +74,14 @@ function mostrarProductos(array){
         div.innerHTML = `<div class="card">
                                 <div class="card-image">
                                     <img src="${el.img}">
-                                    <span class="card-titlesobre2">${el.nombre}</span>
+                                    <span id="nombre" class="card-titlesobre2">${el.nombre}</span>
                                     <br></br>
 									<a id="boton${el.id}" href="#" class="btn btn-primary">Agregar<i class="bi bi-bag-heart"></i></a>
                                     <br></br>
                                 </div>
                                 <div class="card-content">
-                                    <p>${el.desc}</p>
-                                    <p>Tipo: ${el.tipo}</p>
-                                    <p> $ ${el.precio}</p>
+                                    <p id="desc">${el.desc}</p>
+                                    <p id="precio""> $ ${el.precio}</p>
                                 </div>
                             </div>`
 
@@ -134,3 +149,21 @@ function  actualizarCarrito (){
     contadorCarrito.innerText = carritoDeCompras.reduce((acc,el)=> acc + el.cantidad, 0)
    precioTotal.innerText = carritoDeCompras.reduce((acc,el)=> acc + (el.precio * el.cantidad) , 0)                                                            
 }
+
+// Comenzamos LocalStorage
+
+const nombre = document.getElementById("nombre")
+const tipo = document.getElementById("tipo")
+const desc = document.getElementById("desc")
+const datos ={nombre:nombre.value, tipo:mostrarProductos, desc:desc.value}
+console.log(datos);
+localStorage.setItem("datos", JSON.stringify(datos))
+
+function obtenerDatos() {
+
+    let storage1 = JSON.parse(localStorage.getItem("datos"))
+    console.log(storage1);
+
+}
+
+obtenerDatos()
